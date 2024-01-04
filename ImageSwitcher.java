@@ -1,15 +1,36 @@
 import java.awt.*;
 import java.awt.event.*;
 public class ImageSwitcher extends Frame {
-    private Image image1, image2;
-    private boolean switchImages = false;
-    public ImageSwitcher() { image1 = Toolkit.getDefaultToolkit().getImage("C:/Users/BT_1N3_32/Downloads/Image1.jpeg");
-        image2 = Toolkit.getDefaultToolkit().getImage("C:/Users/BT_1N3_32/Downloads/Image2.jpeg");
-        setTitle("Image Switcher");
+    private Image image0, image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18;
+    private Image[] flics;
+    private int imageCount = 1;
+    public ImageSwitcher() {
+        image0 = Toolkit.getDefaultToolkit().getImage(".idea/Image0.jpg");
+        image1 = Toolkit.getDefaultToolkit().getImage(".idea/Image1.jpg");
+        image2 = Toolkit.getDefaultToolkit().getImage(".idea/Image2.jpg");
+        image3 = Toolkit.getDefaultToolkit().getImage(".idea/Image3.jpg");
+        image4 = Toolkit.getDefaultToolkit().getImage(".idea/Image4.jpg");
+        image5 = Toolkit.getDefaultToolkit().getImage(".idea/Image5.jpg");
+        image6 = Toolkit.getDefaultToolkit().getImage(".idea/Image6.jpg");
+        image7 = Toolkit.getDefaultToolkit().getImage(".idea/Image7.jpg");
+        image8 = Toolkit.getDefaultToolkit().getImage(".idea/Image8.jpg");
+        image9 = Toolkit.getDefaultToolkit().getImage(".idea/Image9.jpg");
+        image10 = Toolkit.getDefaultToolkit().getImage(".idea/Image10.jpg");
+        image11 = Toolkit.getDefaultToolkit().getImage(".idea/Image11.jpg");
+        image12 = Toolkit.getDefaultToolkit().getImage(".idea/Image12.jpg");
+        image13 = Toolkit.getDefaultToolkit().getImage(".idea/Image13.jpg");
+        image14 = Toolkit.getDefaultToolkit().getImage(".idea/Image14.jpg");
+        image15 = Toolkit.getDefaultToolkit().getImage(".idea/Image15.jpg");
+        image16 = Toolkit.getDefaultToolkit().getImage(".idea/Image16.jpg");
+        image17 = Toolkit.getDefaultToolkit().getImage(".idea/Image17.jpg");
+        image18 = Toolkit.getDefaultToolkit().getImage(".idea/Image18.jpg");
+        flics = new Image[] {image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18};
+        setTitle("Memory Game");
         setSize(1920, 1080);
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
-                switchImages = !switchImages; repaint();
+                imageCount++;
+                repaint();
             }
         });
         addWindowListener(new WindowAdapter() {
@@ -19,9 +40,7 @@ public class ImageSwitcher extends Frame {
         });
     }
     public void paint(Graphics g) {
-        if (switchImages) {
-            g.drawImage(image2, 0, 0, 1920, 1080, this);
-        } else { g.drawImage(image1, 0, 0, 1920, 1080, this);
+            g.drawImage(flics[imageCount-1], 0, 0, 1920, 1080, this);
         }
     }
-}
+

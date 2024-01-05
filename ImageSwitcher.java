@@ -47,4 +47,4 @@ public class ImageSwitcher extends Frame {
         }
 
     }
-
+//https://code-with-me.global.jetbrains.com/F4UfI5Rq-ZZTC3ZV9aVxwA#p=IC&fp=9ACA5DB17627033B459E5C57C493396F6083AF2ACB0E758E5CD6DE6DD8854129

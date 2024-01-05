@@ -3,6 +3,8 @@ import java.awt.event.*;
 public class ImageSwitcher extends Frame {
     private Image image0, image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18;
     private Image[] flics;
+    private int[] xCoords = {370,635,900,1665,1430,1655};
+    private int[] yCoords = {7, 275,543,811, };
     private int imageCount = 1;
     public ImageSwitcher() {
         image0 = Toolkit.getDefaultToolkit().getImage(".idea/Image0.jpg");
@@ -40,7 +42,9 @@ public class ImageSwitcher extends Frame {
         });
     }
     public void paint(Graphics g) {
-            g.drawImage(flics[imageCount-1], 0, 0, 1920, 1080, this);
+
+        g.drawImage(flics[imageCount-1], 0, 0, 260, 260, this);
         }
+
     }
 

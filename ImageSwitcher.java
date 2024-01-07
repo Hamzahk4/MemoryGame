@@ -21,12 +21,8 @@ public class ImageSwitcher extends Frame {
         image11 = Toolkit.getDefaultToolkit().getImage(".idea/Image11.jpg");
         image12 = Toolkit.getDefaultToolkit().getImage(".idea/Image12.jpg");
         image13 = Toolkit.getDefaultToolkit().getImage(".idea/Image13.jpg");
-        image14 = Toolkit.getDefaultToolkit().getImage(".idea/Image14.jpg");
-        image15 = Toolkit.getDefaultToolkit().getImage(".idea/Image15.jpg");
-        image16 = Toolkit.getDefaultToolkit().getImage(".idea/Image16.jpg");
-        image17 = Toolkit.getDefaultToolkit().getImage(".idea/Image17.jpg");
-        image18 = Toolkit.getDefaultToolkit().getImage(".idea/Image18.jpg");
-        flics = new Image[] {image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13, image14, image15, image16, image17, image18};
+
+        flics = new Image[] {image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13};
         setTitle("Memory Game");
         setSize(1920, 1080);
         addMouseListener(new MouseAdapter() {

@@ -88,4 +88,4 @@ public class ImageSwitcher extends Frame {
     }
 
     }
-//https://code-with-me.global.jetbrains.com/F4UfI5Rq-ZZTC3ZV9aVxwA#p=IC&fp=9ACA5DB17627033B459E5C57C493396F6083AF2ACB0E758E5CD6DE6DD8854129
+//https://code-with-me.global.jetbrains.com/qT23fhMSmbMBtEmX0KCcOw#p=IC&fp=519A6C9894CC7F47097267E648EE6AFDBC4248D9C3AFE83137AE785C8E7E4417

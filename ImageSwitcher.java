@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ImageSwitcher extends Frame {
+public class ImageSwitcher extends Frame{
+//    Frame frame;
+    Graphics g;
     private Image image0, image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13;
     private Image[] flics = new Image[13];
     private Image[] inUseFlics = new Image[24];
@@ -42,19 +44,33 @@ public class ImageSwitcher extends Frame {
             inUseFlics[i + 1] = possibleUseFlics.get(num);
             possibleUseFlics.remove(num);
         }
-        // shuffle is used to shuffle our array to board positions
+        setVisible(true);
+
+        setSize(1920,1080);
+        addWindowListener(new WindowAdapter() {
+                              @Override
+                              public void windowClosing(WindowEvent e) {
+                                  System.exit(0);
+                              }
+                          });
+            // shuffle is used to shuffle our array to board positions
         shuffle(inUseFlics);
-        construct();
+        g = getGraphics();
+        g.drawImage(image0, 100, 100, 265, 265, null);
+        System.out.println(g);
+        printBoard(inUseFlics, g);
     }//end of constructor
 
-    private void printBoard(Image[] ar,Graphics g) {
+    private void printBoard(Image[] ar, Graphics g) {
+        int count = 0;
         for (int i = 0; i < yCoords.length; i++) {
             for (int j = 0; j < xCoords.length; j++) {
-                g.drawImage(flics[imageCount - 1], xCoords[j], yCoords[i], 265, 265, this);
+                g.drawImage(ar[count], xCoords[j], yCoords[i], 265, 265, null);
+                count++;
             }
         }
     }
-
+    // randomizes where each image is within the 24
     public void shuffle(Image[] ar) {
         Random rnd = ThreadLocalRandom.current();
         for (int i = ar.length - 1; i > 0; i--) {
@@ -67,12 +83,12 @@ public class ImageSwitcher extends Frame {
 
     // to come soon
     public void construct() {
-        setTitle("Memory Game");
-        setSize(1920, 1080);
+//        setTitle("Memory Game");setSize(100, 1080);
+
         addMouseListener(new MouseAdapter() {
             public void mouseClicked(MouseEvent e) {
                 imageCount++;
-                printBoard(inUseFlics);
+
             }
         });
         addWindowListener(new WindowAdapter() {
@@ -81,11 +97,5 @@ public class ImageSwitcher extends Frame {
             }
         });
     }
-
-    public void paint(Graphics g) {
-
-        g.drawImage(flics[imageCount - 1], 0, 0, 260, 260, this);
-    }
-
-    }
-//https://code-with-me.global.jetbrains.com/I4XTM7FrOmjl9HCe4FdNVQ#p=IC&fp=FDA8A50E3A7D23F6CFFA08C25A2A9CD9508CD46C82AB37C2542B606EC6E93126
+}
+//https://code-with-me.global.jetbrains.com/qT23fhMSmbMBtEmX0KCcOw#p=IC&fp=519A6C9894CC7F47097267E648EE6AFDBC4248D9C3AFE83137AE785C8E7E4417

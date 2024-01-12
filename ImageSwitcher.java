@@ -1,4 +1,5 @@
 
+import java.awt.event.ActionEvent;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.swing.*;
@@ -110,6 +111,13 @@ public class ImageSwitcher extends JFrame {
         image12 = Toolkit.getDefaultToolkit().getImage(".idea/Image12.jpg");
         image13 = Toolkit.getDefaultToolkit().getImage(".idea/Image13.jpg");
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == button1) {
+            g.drawImage(image0, xCoords[j], yCoords[i], 255, 255, null);
+        }
 }
 
 https://code-with-me.global.jetbrains.com/GVsdMpBmVI_b26bLEVgIuQ#p=IC&fp=2825E2804BA4315AB540CE105FFDF40E0A54C852752C076847716F53FD1BA632

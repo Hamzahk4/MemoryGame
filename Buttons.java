@@ -184,4 +184,4 @@ public class Buttons extends JFrame implements ActionListener{
         button24.setVisible(true);
         add(button24);
     }
-    }
+}

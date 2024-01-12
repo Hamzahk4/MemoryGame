@@ -92,10 +92,7 @@ public class Stopwatch extends JFrame implements ActionListener {
         leaders.add(new Person("EX",20000000));
         leaders.add(new Person("EX",20000000));
 
-
     }
-
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

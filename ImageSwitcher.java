@@ -33,8 +33,17 @@ public class ImageSwitcher extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         shuffle(inUseFlics);
         pack();
+        setLayout(null);
+        Stopwatch stopwatch = new Stopwatch();
+        stopwatch.setLocation(0,0);
+        stopwatch.setBounds(0,0,300,1080);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        shuffle(inUseFlics);
+        add(stopwatch, BorderLayout.WEST);
+        pack();
+
         revalidate(); // Trigger the paint method after loading the images
-       // Stopwatch stopwatch = new Stopwatch();
+        // Stopwatch stopwatch = new Stopwatch();
         // Create and add buttons
         makeButtons();
         setVisible(true);

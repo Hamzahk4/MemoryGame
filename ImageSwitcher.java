@@ -16,7 +16,7 @@ public class ImageSwitcher extends JFrame implements ActionListener {
     private Image[] flics = new Image[13];
     public static Image[] inUseFlics = new Image[24];
     private final List<Image> possibleUseFlics = new ArrayList<>();
-    private static final int[] xCoords = {315,585 ,855, 1125, 1395, 1665}; // x coordinates for 6 columns
+    private static final int[] xCoords = {315 ,585 ,855, 1125, 1395, 1665}; // x coordinates for 6 columns
     private static final int[] yCoords = {0, 265, 530, 795};               // y coordinates for 4 rows
     private int imageCount = 1;
     //private ButtonTest button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12,button13, button14, button15, button16, button17, button18, button19, button20, button21, button22, button23, button24;
@@ -37,7 +37,6 @@ public class ImageSwitcher extends JFrame implements ActionListener {
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.setLocation(0,0);
         stopwatch.setBounds(0,0,300,1080);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         shuffle(inUseFlics);
         add(stopwatch, BorderLayout.WEST);
         pack();
@@ -46,6 +45,12 @@ public class ImageSwitcher extends JFrame implements ActionListener {
         // Stopwatch stopwatch = new Stopwatch();
         // Create and add buttons
         makeButtons();
+        Buttons buttons = new Buttons();
+
+//        getContentPane().add(buttons, BorderLayout.EAST);
+
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setResizable(false);
         setVisible(true);
 //        setExtendedState(getExtendedState()|JFrame.MAXIMIZED_BOTH);
 

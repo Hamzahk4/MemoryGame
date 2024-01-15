@@ -12,12 +12,11 @@ public class Buttons extends JFrame implements ActionListener{
     public Buttons() {
         allDaButts = new JButton[] {button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12,button13, button14, button15, button16, button17, button18, button19, button20, button21, button22, button23, button24};
         buttonCreation();
-        button11.setBounds(0,0,200,200);
     }
     private void buttonCreation(){
         buttonInitialize();
         printButts();
-        addToFrame();
+        buttParameters();
     }
     private void printButts() {
         int count = 0;
@@ -48,6 +47,7 @@ public class Buttons extends JFrame implements ActionListener{
         add(button16);
         add(button17);
         add(button18);
+        add(button19);
         add(button20);
         add(button21);
         add(button22);
@@ -55,7 +55,7 @@ public class Buttons extends JFrame implements ActionListener{
         add(button24);
     }
     public void buttonInitialize(){
-        button1 = new JButton("");
+        button1 = new JButton("STARTTTTTTTTTTTTTTTTTTTTTTTTTT");
         button2 = new JButton("");
         button3 = new JButton("");
         button4 = new JButton("");
@@ -66,8 +66,6 @@ public class Buttons extends JFrame implements ActionListener{
         button9 = new JButton("");
         button10 = new JButton("");
         button11 = new JButton("");
-        button11.setFont(new Font("Ink Free", Font.PLAIN, 20));
-        button11.setFocusable(false);
         button12 = new JButton("");
         button13 = new JButton("");
         button14 = new JButton("");
@@ -81,6 +79,18 @@ public class Buttons extends JFrame implements ActionListener{
         button22 = new JButton("");
         button23 = new JButton("");
         button24 = new JButton("BOO");
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("hi");
+            }
+
+
+        });
+
+        Font bigFont = new Font("Arial", Font.PLAIN, 20);
+        button1.setFont(bigFont);
+        button1.setVisible(true);
         allDaButts = new JButton[]{button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15, button16, button17, button18, button19, button20, button21, button22, button23, button24};
     }
 
@@ -89,7 +99,7 @@ public class Buttons extends JFrame implements ActionListener{
     private void buttParameters(){
 
         button1.addActionListener(this);
-        button1.setVisible(false);
+        button1.setVisible(true);
         add(button1);
 
         button2.addActionListener(this);
@@ -106,7 +116,7 @@ public class Buttons extends JFrame implements ActionListener{
 
         button5.addActionListener(this);
         button5.setVisible(false);
-        add(button5);
+        add(button4);
 
         button6.addActionListener(this);
         button6.setVisible(false);
@@ -124,16 +134,17 @@ public class Buttons extends JFrame implements ActionListener{
         button9.setVisible(false);
         add(button9);
 
+
         button10.addActionListener(this);
-        button10.setVisible(true);
+        button10.setVisible(false);
         add(button10);
 
         button11.addActionListener(this);
-        button11.setVisible(true);
+        button11.setVisible(false);
         add(button11);
 
         button12.addActionListener(this);
-        button12.setVisible(true);
+        button12.setVisible(false);
         add(button12);
 
         button13.addActionListener(this);

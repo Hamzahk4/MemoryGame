@@ -23,15 +23,15 @@ public class Person
     {
     }
 
-    public String askname()
-    {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("What's your name");
-
-        String name = scanner.nextLine();
-        return name;
-
-    }
+//    public String askname()
+//    {
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.println("What's your name");
+//
+//        String name = scanner.nextLine();
+//        return name;
+//
+//    }
 
     public int gettime()
     {

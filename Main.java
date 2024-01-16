@@ -1,8 +1,16 @@
 import java.awt.*;
 import java.awt.event.*;
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
+//        EventQueue.invokeLater(() -> {
         ImageSwitcher imageSwitcher = new ImageSwitcher();
-        imageSwitcher.setVisible(true);
+//            imageSwitcher.makeButtons(); // Add buttons to the frame
+//        });
+
+
+
+
+
     }
 }

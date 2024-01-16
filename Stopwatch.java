@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -52,7 +53,7 @@ public class Stopwatch extends JPanel implements ActionListener {
         public void actionPerformed(ActionEvent e) {
 
 
-            elapsedTime = elapsedTime + 16;
+            elapsedTime = elapsedTime + 15;
             millisec = (elapsedTime / 10) % 100;
             minutes = (elapsedTime / 60000) % 60;
             seconds = (elapsedTime / 1000) % 60;
@@ -121,8 +122,6 @@ public class Stopwatch extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-
         if (e.getSource() == startButton) {
 
 

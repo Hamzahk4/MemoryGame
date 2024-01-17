@@ -278,3 +278,5 @@ public class ImageSwitcher extends JFrame{
 //        }
 //    }
 }
+
+// https://code-with-me.global.jetbrains.com/iFPVjMLZmaChXcCJGKti5w#p=IC&fp=0B1BD1CD8865D51249BA6BB378784F14749453194BB4BF05DF7F1475BB2813EE

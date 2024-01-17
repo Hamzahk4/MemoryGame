@@ -19,7 +19,13 @@ public class ImageSwitcher extends JFrame{
     private final List<Image> possibleUseFlics = new ArrayList<>();
     private static final int[] xCoords = {315 ,585 ,855, 1125, 1395, 1665}; // x coordinates for 6 columns
     private static final int[] yCoords = {0, 265, 530, 795};               // y coordinates for 4 rows
-    private int imageCount = 1;
+    private int imageCount = 0;
+    private boolean printOver = true;
+    private int pairsGuessed = 0;
+    JPanel panel = new JPanel(new GridLayout(4,6));
+    ImageIcon facedown  = new ImageIcon(".idea/Image0.jpg");
+    private boolean[] buttsClicked = new boolean[24];
+    ArrayList<Integer> indices = new ArrayList<Integer>();
 
     ImageIcon[] images = new ImageIcon[12];
     //private ButtonTest button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12,button13, button14, button15, button16, button17, button18, button19, button20, button21, button22, button23, button24;
@@ -40,26 +46,25 @@ public class ImageSwitcher extends JFrame{
 
 
 
-    JPanel panel = new JPanel(new GridLayout(4,6));
-    ImageIcon facedown  = new ImageIcon(".idea/Image0.jpg");
-    ImageIcon image1 = new ImageIcon(".idea/Image1.jpg");
-    ImageIcon image2 = new ImageIcon(".idea/Image2.jpg");
-    ImageIcon image3 = new ImageIcon(".idea/Image3.jpg");
-    ImageIcon image4 = new ImageIcon(".idea/Image4.jpg");
-    ImageIcon image5 = new ImageIcon(".idea/Image5.jpg");
-    ImageIcon image6 = new ImageIcon(".idea/Image6.jpg");
-    ImageIcon image7 = new ImageIcon(".idea/Image7.jpg");
-    ImageIcon image8 = new ImageIcon(".idea/Image8.jpg");
-    ImageIcon image9 = new ImageIcon(".idea/Image9.jpg");
-    ImageIcon image10 = new ImageIcon(".idea/Image10.jpg");
-    ImageIcon image11 = new ImageIcon(".idea/Image11.jpg");
-    ImageIcon image12= new ImageIcon(".idea/Image12.jpg");
+
+//   ImageIcon image1 = new ImageIcon(".idea/Image1.jpg");
+//    ImageIcon image2 = new ImageIcon(".idea/Image2.jpg");
+//    ImageIcon image3 = new ImageIcon(".idea/Image3.jpg");
+//    ImageIcon image4 = new ImageIcon(".idea/Image4.jpg");
+//    ImageIcon image5 = new ImageIcon(".idea/Image5.jpg");
+//    ImageIcon image6 = new ImageIcon(".idea/Image6.jpg");
+//    ImageIcon image7 = new ImageIcon(".idea/Image7.jpg");
+//    ImageIcon image8 = new ImageIcon(".idea/Image8.jpg");
+//    ImageIcon image9 = new ImageIcon(".idea/Image9.jpg");
+//    ImageIcon image10 = new ImageIcon(".idea/Image10.jpg");
+//    ImageIcon image11 = new ImageIcon(".idea/Image11.jpg");
+//    ImageIcon image12= new ImageIcon(".idea/Image12.jpg");
 
     public void makeimagelist()
     {
         int i = 1;
-        while (i<12){
-            images[i] = new ImageIcon(".idea/Image " + i + ".jpg");
+        while (i<13){
+            images[i-1] = new ImageIcon(".idea/Image" + i + ".jpg");
             i++;
         }
     }
@@ -85,6 +90,7 @@ public class ImageSwitcher extends JFrame{
         frame.setLayout(null);
         setTitle("Memory Game");
         panel.setBounds(300,0,1620,1080);
+
         for (int i = 0; i<24; i++)
         {
             int index = i;
@@ -93,7 +99,33 @@ public class ImageSwitcher extends JFrame{
                 @Override
                 public void actionPerformed(ActionEvent e)
                 {
-                    button.setIcon(shuffledImages.get(index));
+                    int count = 0;
+                    buttsClicked[index] = true;
+                    for (int j = 0; j < 23; j++){
+                        if (buttsClicked[j] == true) {
+                            count++;
+                            indices.add(j);
+                            System.out.println("buttsClicked at index " + j + " was clicked and count is " + count);
+                        }
+                    }
+                    if (count == 2){
+                        if (indices.get(indices.size()-2) == indices.get(indices.size()-1)){
+                            printOver = false;
+                            pairsGuessed++;
+                            System.out.println("Two choices selected and they are equal");
+                        }
+                        else {
+                            printOver = true;
+                            indices.remove(indices.size()-1);
+                            indices.remove(indices.size()-1);
+                            System.out.println("Two choices not equal");
+                        }
+
+                    }
+                    if (!(indices.contains(index))) {
+                        button.setIcon(shuffledImages.get(index));
+                    }
+
 //                    Image i = shuffledImages.get(index).getImage();
 //                    int xCoord = index % 6;
 //                    int yCoord = index / 6;
@@ -278,5 +310,3 @@ public class ImageSwitcher extends JFrame{
 //        }
 //    }
 }
-
-// https://code-with-me.global.jetbrains.com/dLC-17yLt0g-A0FTFq7IWw#p=IC&fp=0B1BD1CD8865D51249BA6BB378784F14749453194BB4BF05DF7F1475BB2813EE

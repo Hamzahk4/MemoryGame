@@ -1,4 +1,4 @@
-https://code-with-me.global.jetbrains.com/XCwjwVpSESGelloQvxrGeQ#p=IC&fp=EFBCCA3C2BE7666E1508A5A8DB2831735C76D72B79D774D3E0BD5DC4F58E3DEF
+
 
 
 
@@ -26,6 +26,8 @@ public class ImageSwitcher extends JFrame{
     private static final int[] xCoords = {315 ,585 ,855, 1125, 1395, 1665}; // x coordinates for 6 columns
     private static final int[] yCoords = {0, 265, 530, 795};               // y coordinates for 4 rows
     private int imageCount = 0;
+
+    private int count = 0;
     private boolean printOver = true;
     private int pairsGuessed = 0;
     private boolean canclick = true;
@@ -165,22 +167,26 @@ public class ImageSwitcher extends JFrame{
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    if (!canclick || buttsClicked[index]) return;
+                    if (!canclick || buttsClicked[index]||count>1) return;
+                    System.out.println(count);
 
-
-
-
-                    button.setIcon(shuffledImages.get(index));
-                    buttsClicked[index] = true;
-                    indices.add(index);
+                    if (count<2)
+                    {
+                        button.setIcon(shuffledImages.get(index));
+                        buttsClicked[index] = true;
+                        indices.add(index);
+                        count++;
+                    }
 
                     // Check if two buttons are clicked
                     if (indices.size() % 2 == 0)
                     {
+//                        canclick=false;
                         int lastIndex = indices.size() - 2;
                         if (shuffledImages.get(indices.get(lastIndex)).equals(shuffledImages.get(indices.get(lastIndex + 1))))
                         {
                             pairsGuessed++;
+                            count=0;
                             if (pairsGuessed == 12)
                             {
                                 JOptionPane.showMessageDialog(frame, "You won!");
@@ -189,7 +195,7 @@ public class ImageSwitcher extends JFrame{
                         }
                         else
                         {
-                            Timer timer = new Timer(1000, new ActionListener()
+                            Timer timer = new Timer(500, new ActionListener()
                             {
                                 public void actionPerformed(ActionEvent evt)
                                 {
@@ -200,12 +206,16 @@ public class ImageSwitcher extends JFrame{
                                     buttsClicked[indices.get(lastIndex + 1)] = false;
                                     indices.remove(indices.size() - 1);
                                     indices.remove(indices.size() - 1);
+                                    count=0;
                                 }
                             });
                             timer.setRepeats(false);
                             timer.start();
+
                         }
+
                     }
+
                 }
             });
             panel.add(button);
@@ -424,8 +434,6 @@ public class ImageSwitcher extends JFrame{
 //        }
 //    }
 }
-
-https://code-with-me.global.jetbrains.com/HBAzxpjQHg1MpDJqpPUI5A#p=IC&fp=EFBCCA3C2BE7666E1508A5A8DB2831735C76D72B79D774D3E0BD5DC4F58E3DEF
 
 
 

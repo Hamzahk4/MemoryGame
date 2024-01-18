@@ -1,4 +1,7 @@
 
+
+
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
@@ -13,8 +16,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
+
+
 public class ImageSwitcher extends JFrame{
-    private Image[] flics = new Image[13];
+    private Image[] flics = new Image[12];
     public static Image[] inUseFlics = new Image[24];
     private final List<Image> possibleUseFlics = new ArrayList<>();
     private static final int[] xCoords = {315 ,585 ,855, 1125, 1395, 1665}; // x coordinates for 6 columns
@@ -22,16 +28,26 @@ public class ImageSwitcher extends JFrame{
     private int imageCount = 0;
     private boolean printOver = true;
     private int pairsGuessed = 0;
+    private boolean canclick = true;
     JPanel panel = new JPanel(new GridLayout(4,6));
     ImageIcon facedown  = new ImageIcon(".idea/Image0.jpg");
     private boolean[] buttsClicked = new boolean[24];
     ArrayList<Integer> indices = new ArrayList<Integer>();
 
+
+
+
     ImageIcon[] images = new ImageIcon[12];
     //private ButtonTest button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12,button13, button14, button15, button16, button17, button18, button19, button20, button21, button22, button23, button24;
 //    private ButtonTest[] butts = new ButtonTest[24];
 
+
+
+
     List<ImageIcon> shuffledImages = new ArrayList<>();
+
+
+
 
     public void shuffled()
     {
@@ -40,9 +56,24 @@ public class ImageSwitcher extends JFrame{
             shuffledImages.add(images);
             shuffledImages.add(images);
 
+
+
+
         }
         Collections.shuffle(shuffledImages);
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -60,6 +91,9 @@ public class ImageSwitcher extends JFrame{
 //    ImageIcon image11 = new ImageIcon(".idea/Image11.jpg");
 //    ImageIcon image12= new ImageIcon(".idea/Image12.jpg");
 
+
+
+
     public void makeimagelist()
     {
         int i = 1;
@@ -71,6 +105,15 @@ public class ImageSwitcher extends JFrame{
 
 
 
+
+
+
+
+
+
+
+
+
     public void makeframe()
     {
         JFrame frame = new JFrame();
@@ -78,66 +121,29 @@ public class ImageSwitcher extends JFrame{
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         panel.setBounds(300,0,1620,1080);
 
+
+
+
     }
 
 
 
-    public ImageSwitcher()
-    {
+
+
+
+
+
+
+
+
+
+    public ImageSwitcher() {
         makeimagelist();
         shuffled();
         JFrame frame = new JFrame();
         frame.setLayout(null);
         setTitle("Memory Game");
-        panel.setBounds(300,0,1620,1080);
-
-        for (int i = 0; i<24; i++)
-        {
-            int index = i;
-            JButton button = new JButton(facedown);
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e)
-                {
-                    int count = 0;
-                    buttsClicked[index] = true;
-                    for (int j = 0; j < 23; j++){
-                        if (buttsClicked[j] == true) {
-                            count++;
-                            indices.add(j);
-                            System.out.println("buttsClicked at index " + j + " was clicked and count is " + count);
-                        }
-                    }
-                    if (count == 2){
-                        if (indices.get(indices.size()-2) == indices.get(indices.size()-1)){
-                            printOver = false;
-                            pairsGuessed++;
-                            System.out.println("Two choices selected and they are equal");
-                        }
-                        else {
-                            printOver = true;
-                            indices.remove(indices.size()-1);
-                            indices.remove(indices.size()-1);
-                            System.out.println("Two choices not equal");
-                        }
-
-                    }
-                    if (!(indices.contains(index))) {
-                        button.setIcon(shuffledImages.get(index));
-                    }
-
-//                    Image i = shuffledImages.get(index).getImage();
-//                    int xCoord = index % 6;
-//                    int yCoord = index / 6;
-//                    xCoord = xCoords[xCoord];
-//                    yCoord = yCoords[yCoord];
-//
-//                    getGraphics().drawImage(i, xCoord, yCoord, 270, 270, null);
-//                    System.out.println(index);
-                }
-            });
-            panel.add(button);
-        }
+        panel.setBounds(300, 0, 1620, 1080);
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -147,7 +153,85 @@ public class ImageSwitcher extends JFrame{
         stopwatch.setBounds(0,0,300,1080);
         frame.add(stopwatch, BorderLayout.WEST);
         frame.pack();
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setResizable(false);
+
+
+
+
+        for (int i = 0; i < 24; i++) {
+            JButton button = new JButton(facedown);
+            int index = i;
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (!canclick || buttsClicked[index]) return;
+
+
+
+
+                    button.setIcon(shuffledImages.get(index));
+                    buttsClicked[index] = true;
+                    indices.add(index);
+
+                    // Check if two buttons are clicked
+                    if (indices.size() % 2 == 0)
+                    {
+                        int lastIndex = indices.size() - 2;
+                        if (shuffledImages.get(indices.get(lastIndex)).equals(shuffledImages.get(indices.get(lastIndex + 1))))
+                        {
+                            pairsGuessed++;
+                            if (pairsGuessed == 12)
+                            {
+                                JOptionPane.showMessageDialog(frame, "You won!");
+                                stopwatch.reset();
+                            }
+                        }
+                        else
+                        {
+                            Timer timer = new Timer(1000, new ActionListener()
+                            {
+                                public void actionPerformed(ActionEvent evt)
+                                {
+                                    button.setIcon(facedown);
+                                    JButton lastButton = (JButton) panel.getComponent(indices.get(lastIndex));
+                                    lastButton.setIcon(facedown);
+                                    buttsClicked[indices.get(lastIndex)] = false;
+                                    buttsClicked[indices.get(lastIndex + 1)] = false;
+                                    indices.remove(indices.size() - 1);
+                                    indices.remove(indices.size() - 1);
+                                }
+                            });
+                            timer.setRepeats(false);
+                            timer.start();
+                        }
+                    }
+                }
+            });
+            panel.add(button);
+        }
+
+
+
+
+        // Add stopwatch or other components if needed
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -185,6 +269,9 @@ public class ImageSwitcher extends JFrame{
 //        setExtendedState(getExtendedState()|JFrame.MAXIMIZED_BOTH);
 //    }
 
+
+
+
 //    private void initializeArrays() {
 //        flics = new Image[]{image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13};
 //        Collections.addAll(possibleUseFlics, flics);
@@ -197,11 +284,17 @@ public class ImageSwitcher extends JFrame{
 //        }
 //    }
 
+
+
+
 //    @Override
 //    public void paint(Graphics g) {
 //        super.paint(g);
 //        startBoard(inUseFlics, g);
 //    }
+
+
+
 
 //    private void startBoard(Image[] ar, Graphics g) {
 //        int count = 0;
@@ -214,6 +307,9 @@ public class ImageSwitcher extends JFrame{
 //        }
 //    }
 
+
+
+
 //    public void shuffle(Image[] ar) {
 //        Random rnd = ThreadLocalRandom.current();
 //        for (int i = ar.length - 1; i > 0; i--) {
@@ -224,11 +320,17 @@ public class ImageSwitcher extends JFrame{
 //        }
 //    }
 
+
+
+
 //    public static void main(String[] args) {
 //        EventQueue.invokeLater(() -> {
 //            new ImageSwitcher();
 //        });
 //    }
+
+
+
 
 //    public static int[] getXCoords(){
 //        return xCoords;
@@ -236,6 +338,9 @@ public class ImageSwitcher extends JFrame{
 //    public static int[] getYCoords(){
 //        return yCoords;
 //    }
+
+
+
 
 //    private void loadImages() {
 //        MediaTracker tracker = new MediaTracker(this);
@@ -274,6 +379,12 @@ public class ImageSwitcher extends JFrame{
 //    }
 
 
+
+
+
+
+
+
 //    public void makeButtons()
 //    {
 //        int count = 0;
@@ -298,6 +409,9 @@ public class ImageSwitcher extends JFrame{
 //        }
 //    }
 
+
+
+
 //    @Override
 //    public void actionPerformed(ActionEvent e) {
 //        for (ButtonTest button : butts) {
@@ -310,3 +424,8 @@ public class ImageSwitcher extends JFrame{
 //        }
 //    }
 }
+
+
+
+
+

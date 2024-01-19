@@ -13,35 +13,47 @@ public class Stopwatch extends JPanel implements ActionListener {
     JButton startButton = new JButton("START");
     JButton resetButton = new JButton("RESET");
     JLabel timeLabel = new JLabel();
+
+    JTextArea instructions = new JTextArea();
     private int elapsedTime = 0;
     private int seconds = 0;
     private int minutes = 0;
     private int millisec = 0;
+
 
     private String leadername1 = "N/A";
     private String leadername2 = "N/A";
     private String leadername3 = "N/A";
 
 
-    private Person person;
+    Person person = new Person();
+
+
+
 
     ArrayList<Person> leaders = new ArrayList<Person>();
+
 
     private String name;
     private int leaderboard1=0;
     private int leaderboard2=0;
     private int leaderboard3=0;
 
+
     private boolean started = false;
     private String seconds_string = String.format("%02d", seconds);
     private String minutes_string = String.format("%02d", minutes);
     private String millisec_string = String.format("%02d", millisec);
 
+
     JTextArea leaderboardframe1 = new JTextArea();
+
 
     Timer timer = new Timer(1, new ActionListener() {
 
+
         public void actionPerformed(ActionEvent e) {
+
 
             elapsedTime = elapsedTime + 15;
             millisec = (elapsedTime / 10) % 100;
@@ -52,37 +64,75 @@ public class Stopwatch extends JPanel implements ActionListener {
             millisec_string = String.format("%02d", millisec);
             timeLabel.setText(minutes_string + ":" + seconds_string + ":" + millisec_string);
 
+
         }
+
 
     });
 
-    public Stopwatch(Person p) {
+    public void setinstructions()
+    {
+        instructions.setText("  Welcome to MEMORY GAME      \n\n Please follow the following rules\n\n 1. Do not click the same button twice\n 2. You can select two images at once\n 3. If the images are the same they will \nremain faceup\n 4. Once all pairs are found the game \nwill end\n GOOD LUCKKKKK");
+        instructions.setBounds(0, 700, 300, 300);
+        instructions.setFont(new Font("Serif", Font.PLAIN, 18));
+        instructions.setBorder(BorderFactory.createBevelBorder(0));
+        add(instructions);
+
+    }
+
+
+
+    public Stopwatch() {
         setBounds(0,0,300,1080);
         setupleaderboard();
         setLayout(null);
-        person = p;
+
 
         timeLabel.setText(minutes_string + ":" + seconds_string + ":" + millisec_string);
         timeLabel.setBounds(50, 100, 200, 100);
-        timeLabel.setFont(new Font("Verdana", Font.PLAIN, 35));
+        timeLabel.setFont(new Font("Serif", Font.PLAIN, 35));
         timeLabel.setBorder(BorderFactory.createBevelBorder(1));
         timeLabel.setOpaque(true);
         timeLabel.setHorizontalAlignment(JTextField.CENTER);
 
+
         startButton.setBounds(50, 200, 200, 50);
-        startButton.setFont(new Font("Ink Free", Font.PLAIN, 20));
+        startButton.setFont(new Font("Serif", Font.PLAIN, 20));
         startButton.setFocusable(false);
         startButton.addActionListener(this);
 
+
+//        resetButton.setBounds(50, 250, 200, 50);
+//        resetButton.setFont(new Font("Ink Free", Font.PLAIN, 20));
+//        resetButton.setFocusable(false);
+//        resetButton.addActionListener(this);
+
+
+
+
+
+
         add(startButton);
+//        add(resetButton);
         add(timeLabel);
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(300, 1080);
+//        frame.setLayout(null);
+//        frame.setVisible(true);
+
+
         leaders.add(new Person("EX",20000000));
         leaders.add(new Person("EX",20000000));
+
+        setinstructions();
+
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
+
 
             if (!started) {
                 started = true;
@@ -94,6 +144,7 @@ public class Stopwatch extends JPanel implements ActionListener {
                 stop();
             }
 
+
         }
         if (e.getSource() == resetButton) {
             started = false;
@@ -101,14 +152,17 @@ public class Stopwatch extends JPanel implements ActionListener {
             reset();
         }
 
+
     }
     void start() {
         timer.start();
     }
 
+
     void stop() {
         timer.stop();
     }
+
 
     void reset() {
         timer.stop();
@@ -138,9 +192,14 @@ public class Stopwatch extends JPanel implements ActionListener {
 
     }
 
+
+
+
+
+
     public void updateleaderboard()
     {
-
+//        name = person.askname();
         leaders.add(new Person(name,elapsedTime));
         leaders.sort(Comparator.comparing(Person::gettime));
         Person person1 = (Person)(leaders.get(0));
@@ -170,15 +229,19 @@ public class Stopwatch extends JPanel implements ActionListener {
                 "\n\n3." +  person3.getName() + "    " + c_string+ ":" + f_string+ ":" + i_string);
 
     }
-    public Person getPerson(){
-        return person;
-    }
+
+
     public void setupleaderboard()
     {
         leaderboardframe1.setText( "1." +  leadername1 + "      00:00:00"  + "\n\n 2." +  leadername2 +  "     00:00:00" + "\n\n 3." +  leadername3 +  "     00:00:00");
         leaderboardframe1.setBounds(0, 400, 300, 300);
-        leaderboardframe1.setFont(new Font("Arial", Font.PLAIN, 30));
+        leaderboardframe1.setFont(new Font("Serif", Font.PLAIN, 30));
         leaderboardframe1.setBorder(BorderFactory.createBevelBorder(0));
         add(leaderboardframe1);
     }
+
+
+
+
+
 }

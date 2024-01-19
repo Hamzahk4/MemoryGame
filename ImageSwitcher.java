@@ -1,7 +1,7 @@
 
 
 
-//https://code-with-me.global.jetbrains.com/Tlhb9HPin9gMX6qjg_ZRig#p=IC&fp=08B76679530F8870323043ED621DE02CDF0D81AFE1F2239C187B9F3A82706ECE
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.ImageObserver;
@@ -16,17 +16,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-
-
-
 public class ImageSwitcher extends JFrame{
     private Image[] flics = new Image[12];
-    public static Image[] inUseFlics = new Image[24];
-    private final List<Image> possibleUseFlics = new ArrayList<>();
     private static final int[] xCoords = {315 ,585 ,855, 1125, 1395, 1665}; // x coordinates for 6 columns
     private static final int[] yCoords = {0, 265, 530, 795};               // y coordinates for 4 rows
     private int imageCount = 0;
-
     private int count = 0;
     private boolean printOver = true;
     private int pairsGuessed = 0;
@@ -34,66 +28,11 @@ public class ImageSwitcher extends JFrame{
     JPanel panel = new JPanel(new GridLayout(4,6));
     ImageIcon facedown  = new ImageIcon(".idea/Image0.jpg");
     private boolean[] buttsClicked = new boolean[24];
-    ArrayList<Integer> indices = new ArrayList<Integer>();
+    private ArrayList<Integer> indices = new ArrayList<Integer>();
+    private ImageIcon[] images = new ImageIcon[12];
+    private List<ImageIcon> shuffledImages = new ArrayList<>();
 
-    private boolean playing = true;
-
-    private int timerstarted=0;
-
-
-
-
-    ImageIcon[] images = new ImageIcon[12];
-    //private ButtonTest button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12,button13, button14, button15, button16, button17, button18, button19, button20, button21, button22, button23, button24;
-//    private ButtonTest[] butts = new ButtonTest[24];
-
-
-
-
-
-    List<ImageIcon> shuffledImages = new ArrayList<>();
-
-
-
-
-    public void shuffled()
-    {
-        for (ImageIcon images:images)
-        {
-            shuffledImages.add(images);
-            shuffledImages.add(images);
-
-
-
-
-        }
-        Collections.shuffle(shuffledImages);
-    }
-//   ImageIcon image1 = new ImageIcon(".idea/Image1.jpg");
-//    ImageIcon image2 = new ImageIcon(".idea/Image2.jpg");
-//    ImageIcon image3 = new ImageIcon(".idea/Image3.jpg");
-//    ImageIcon image4 = new ImageIcon(".idea/Image4.jpg");
-//    ImageIcon image5 = new ImageIcon(".idea/Image5.jpg");
-//    ImageIcon image6 = new ImageIcon(".idea/Image6.jpg");
-//    ImageIcon image7 = new ImageIcon(".idea/Image7.jpg");
-//    ImageIcon image8 = new ImageIcon(".idea/Image8.jpg");
-//    ImageIcon image9 = new ImageIcon(".idea/Image9.jpg");
-//    ImageIcon image10 = new ImageIcon(".idea/Image10.jpg");
-//    ImageIcon image11 = new ImageIcon(".idea/Image11.jpg");
-//    ImageIcon image12= new ImageIcon(".idea/Image12.jpg");
-
-    public void makeimagelist()
-    {
-        int i = 1;
-        while (i<13){
-            images[i-1] = new ImageIcon(".idea/Image" + i + ".jpg");
-            i++;
-        }
-    }
-
-
-    public ImageSwitcher()
-    {
+    public ImageSwitcher() {
         makeimagelist();
         shuffled();
         JFrame frame = new JFrame();
@@ -104,15 +43,13 @@ public class ImageSwitcher extends JFrame{
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-        Stopwatch stopwatch = new Stopwatch();
-        stopwatch.setLocation(0,0);
-        stopwatch.setBounds(0,0,300,1080);
+        Stopwatch stopwatch = new Stopwatch(new Person());
+        stopwatch.setLocation(0, 0);
+        stopwatch.setBounds(0, 0, 300, 1080);
         frame.add(stopwatch, BorderLayout.WEST);
         frame.pack();
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.setResizable(false);
-
-
 
 
         for (int i = 0; i < 24; i++) {
@@ -120,44 +57,39 @@ public class ImageSwitcher extends JFrame{
             int index = i;
             button.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e)
-                {
+                public void actionPerformed(ActionEvent e) {
                     stopwatch.start();
 
-                    if (!canclick || buttsClicked[index]||count>1) return;
-                    System.out.println(count);
+                    if (!canclick || buttsClicked[index] || count > 1) return;
+//                    System.out.println(count);
 
-                    if (count<2)
-                    {
+                    if (count < 2) {
                         button.setIcon(shuffledImages.get(index));
                         buttsClicked[index] = true;
                         indices.add(index);
                         count++;
                     }
+                    int temp = 0;
+                    for (int t = 0; t < 24; t++) {
+                        if (buttsClicked[t] == true) temp++;
+                    }
 
                     // Check if two buttons are clicked
-                    if (indices.size() % 2 == 0)
-                    {
-//                        canclick=false;
+                    if (indices.size() % 2 == 0) {
+
                         int lastIndex = indices.size() - 2;
-                        if (shuffledImages.get(indices.get(lastIndex)).equals(shuffledImages.get(indices.get(lastIndex + 1))))
-                        {
+                        if (shuffledImages.get(indices.get(lastIndex)).equals(shuffledImages.get(indices.get(lastIndex + 1)))) {
                             pairsGuessed++;
-                            count=0;
-                            if (pairsGuessed == 12)
-                            {
+                            count = 0;
+                            if (pairsGuessed == 12) {
                                 stopwatch.stop();
                                 JOptionPane.showMessageDialog(frame, "You won!");
                                 stopwatch.reset();
                                 Playagain();
                             }
-                        }
-                        else
-                        {
-                            Timer timer = new Timer(500, new ActionListener()
-                            {
-                                public void actionPerformed(ActionEvent evt)
-                                {
+                        } else {
+                            Timer timer = new Timer(500, new ActionListener() {
+                                public void actionPerformed(ActionEvent evt) {
                                     button.setIcon(facedown);
                                     JButton lastButton = (JButton) panel.getComponent(indices.get(lastIndex));
                                     lastButton.setIcon(facedown);
@@ -165,7 +97,7 @@ public class ImageSwitcher extends JFrame{
                                     buttsClicked[indices.get(lastIndex + 1)] = false;
                                     indices.remove(indices.size() - 1);
                                     indices.remove(indices.size() - 1);
-                                    count=0;
+                                    count = 0;
                                 }
                             });
                             timer.setRepeats(false);
@@ -179,11 +111,36 @@ public class ImageSwitcher extends JFrame{
             });
             panel.add(button);
         }
+oneLessPpl();
+    }
+    public static int getxCoords(int column){
+        return xCoords[column-1];
+    }
+    public static int getyCoords(int row){
+        return yCoords[row-1];
+    }
+    public void shuffled()
+    {
+        for (ImageIcon images:images)
+        {
+            shuffledImages.add(images);
+            shuffledImages.add(images);
+
+        }
+        Collections.shuffle(shuffledImages);
+    }
+    public void oneLessPpl(){
+Person.totalPpl--;
+    }
 
 
-
-
-        // Add stopwatch or other components if needed
+    public void makeimagelist()
+    {
+        int i = 1;
+        while (i<13){
+            images[i-1] = new ImageIcon(".idea/Image" + i + ".jpg");
+            i++;
+        }
     }
 
     public void Playagain() {
@@ -208,6 +165,14 @@ public class ImageSwitcher extends JFrame{
 
             System.exit(0);
     }
+    public int findTrues(int n) {
+        int count = 0;
+        while (n < buttsClicked.length) {
+            if (buttsClicked[n] == true) return n;
+            n++;
+        }
+            return -1;
+        }
     public void resetGame() {
         // Reset game state
         pairsGuessed = 0;
@@ -217,8 +182,6 @@ public class ImageSwitcher extends JFrame{
         {
             buttsClicked[i]=false;
         }
-
-
 
         // Reset buttons to facedown
         for (Component comp : panel.getComponents()) {
@@ -233,211 +196,3 @@ public class ImageSwitcher extends JFrame{
         shuffled();
     }
 }
-
-
-//   ImageIcon image1 = new ImageIcon(".idea/Image1.jpg");
-//    ImageIcon image2 = new ImageIcon(".idea/Image2.jpg");
-//    ImageIcon image3 = new ImageIcon(".idea/Image3.jpg");
-//    ImageIcon image4 = new ImageIcon(".idea/Image4.jpg");
-//    ImageIcon image5 = new ImageIcon(".idea/Image5.jpg");
-//    ImageIcon image6 = new ImageIcon(".idea/Image6.jpg");
-//    ImageIcon image7 = new ImageIcon(".idea/Image7.jpg");
-//    ImageIcon image8 = new ImageIcon(".idea/Image8.jpg");
-//    ImageIcon image9 = new ImageIcon(".idea/Image9.jpg");
-//    ImageIcon image10 = new ImageIcon(".idea/Image10.jpg");
-//    ImageIcon image11 = new ImageIcon(".idea/Image11.jpg");
-//    ImageIcon image12= new ImageIcon(".idea/Image12.jpg");
-//    public Image[] getFlics()
-//    {
-//        return inUseFlics;
-//    }
-//    public ImageSwitcher() {
-//        loadImages();
-//        initializeArrays();
-////        setResizable(false);
-//        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        makeButtons();
-//        shuffle(inUseFlics);
-//        pack();
-//        setLayout(null);
-//        Stopwatch stopwatch = new Stopwatch();
-//        stopwatch.setLocation(0,0);
-//        stopwatch.setBounds(0,0,300,1080);
-//        shuffle(inUseFlics);
-//        add(stopwatch, BorderLayout.WEST);
-//        pack();
-//
-//        revalidate(); // Trigger the paint method after loading the images
-//        // Stopwatch stopwatch = new Stopwatch();
-//        // Create and add button
-////        Buttons buttons = new Buttons();
-//
-////        getContentPane().add(buttons, BorderLayout.EAST);
-//        repaint();
-//        setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        setResizable(false);
-//        setVisible(true);
-//        setExtendedState(getExtendedState()|JFrame.MAXIMIZED_BOTH);
-//    }
-
-
-
-
-//    private void initializeArrays() {
-//        flics = new Image[]{image1, image2, image3, image4, image5, image6, image7, image8, image9, image10, image11, image12, image13};
-//        Collections.addAll(possibleUseFlics, flics);
-//
-//        for (int i = 0; i < 23; i += 2) {
-//            int num = (int) (Math.random() * possibleUseFlics.size());
-//            inUseFlics[i] = possibleUseFlics.get(num);
-//            inUseFlics[i + 1] = possibleUseFlics.get(num);
-//            possibleUseFlics.remove(num);
-//        }
-//    }
-
-
-
-
-//    @Override
-//    public void paint(Graphics g) {
-//        super.paint(g);
-//        startBoard(inUseFlics, g);
-//    }
-
-
-
-
-//    private void startBoard(Image[] ar, Graphics g) {
-//        int count = 0;
-//        for (int i = 0; i < yCoords.length; i++) {
-//            for (int j = 0; j < xCoords.length; j++) {
-////                g.drawImage(ar[count], xCoords[j], yCoords[i], 255, 255, null);
-//                g.drawImage(image0, xCoords[j], yCoords[i], 255, 255, null);
-//                count++;
-//            }
-//        }
-//    }
-
-
-
-
-//    public void shuffle(Image[] ar) {
-//        Random rnd = ThreadLocalRandom.current();
-//        for (int i = ar.length - 1; i > 0; i--) {
-//            int index = rnd.nextInt(i + 1);
-//            Image a = ar[index];
-//            ar[index] = ar[i];
-//            ar[i] = a;
-//        }
-//    }
-
-
-
-
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(() -> {
-//            new ImageSwitcher();
-//        });
-//    }
-
-
-
-
-//    public static int[] getXCoords(){
-//        return xCoords;
-//    }
-//    public static int[] getYCoords(){
-//        return yCoords;
-//    }
-
-
-
-
-//    private void loadImages() {
-//        MediaTracker tracker = new MediaTracker(this);
-//        image0 = Toolkit.getDefaultToolkit().getImage(".idea/Image0.jpg");
-//        tracker.addImage(image0, 0);
-//        image1 = Toolkit.getDefaultToolkit().getImage(".idea/Image1.jpg");
-//        tracker.addImage(image1, 1);
-//        image2 = Toolkit.getDefaultToolkit().getImage(".idea/Image2.jpg");
-//        tracker.addImage(image2, 2);
-//        image3 = Toolkit.getDefaultToolkit().getImage(".idea/Image3.jpg");
-//        tracker.addImage(image3, 3);
-//        image4 = Toolkit.getDefaultToolkit().getImage(".idea/Image4.jpg");
-//        tracker.addImage(image4, 4);
-//        image5 = Toolkit.getDefaultToolkit().getImage(".idea/Image5.jpg");
-//        tracker.addImage(image5, 5);
-//        image6 = Toolkit.getDefaultToolkit().getImage(".idea/Image6.jpg");
-//        tracker.addImage(image6, 6);
-//        image7 = Toolkit.getDefaultToolkit().getImage(".idea/Image7.jpg");
-//        tracker.addImage(image7, 7);
-//        image8 = Toolkit.getDefaultToolkit().getImage(".idea/Image8.jpg");
-//        tracker.addImage(image8, 8);
-//        image9 = Toolkit.getDefaultToolkit().getImage(".idea/Image9.jpg");
-//        image10 = Toolkit.getDefaultToolkit().getImage(".idea/Image10.jpg");
-//        tracker.addImage(image10, 10);
-//        image11 = Toolkit.getDefaultToolkit().getImage(".idea/Image11.jpg");
-//        tracker.addImage(image11, 11);
-//        image12 = Toolkit.getDefaultToolkit().getImage(".idea/Image12.jpg");
-//        tracker.addImage(image12, 12);
-//        image13 = Toolkit.getDefaultToolkit().getImage(".idea/Image13.jpg");
-//        tracker.addImage(image13, 13);
-//        try {
-//            tracker.waitForAll();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
-
-
-
-
-
-
-//    public void makeButtons()
-//    {
-//        int count = 0;
-//        for (int i = 0; i < yCoords.length; i++) {
-//            for (int j = 0; j < xCoords.length; j++) {
-//                butts[count] = new ButtonTest(xCoords[j], yCoords[i], imageIcon0);
-//                butts[count].buttParameters();
-//                butts[count].addActionListener(this);
-//                add(butts[count]);
-//                count++;
-//            }
-//        }
-//    }
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-////        for (int i =0; i<24; i++)
-//
-//        if (e.getSource() == butts[0] && !butts[0].getClicked()) {
-//            butts[0].setClicked();
-//            getGraphics().drawImage(inUseFlics[butts[0].getFlicIndex()], butts[0].getxCoord(), butts[0].getyCoord(), 255, 255, this);  // Trigger a repaint to display the image
-//            System.out.println("action performed");
-//        }
-//    }
-
-
-
-
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        for (ButtonTest button : butts) {
-//            if (e.getSource() == button && !button.getClicked()) {
-//                button.setClicked();
-//                getGraphics().drawImage(inUseFlics[button.getFlicIndex()], button.getxCoord(), button.getyCoord(), 255, 255, this);
-//                System.out.println("Button clicked");
-//                break;  // Break to handle only one button click
-//            }
-//        }
-//    }
-//https://code-with-me.global.jetbrains.com/RBVsGtHv7aAty26gRoC1PA#p=IC&fp=08B76679530F8870323043ED621DE02CDF0D81AFE1F2239C187B9F3A82706ECE
-
-
-
-
-
-

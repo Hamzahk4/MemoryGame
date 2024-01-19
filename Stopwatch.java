@@ -88,10 +88,10 @@ public class Stopwatch extends JPanel implements ActionListener {
         startButton.addActionListener(this);
 
 
-        resetButton.setBounds(50, 250, 200, 50);
-        resetButton.setFont(new Font("Ink Free", Font.PLAIN, 20));
-        resetButton.setFocusable(false);
-        resetButton.addActionListener(this);
+//        resetButton.setBounds(50, 250, 200, 50);
+//        resetButton.setFont(new Font("Ink Free", Font.PLAIN, 20));
+//        resetButton.setFocusable(false);
+//        resetButton.addActionListener(this);
 
 
 
@@ -99,7 +99,7 @@ public class Stopwatch extends JPanel implements ActionListener {
 
 
         add(startButton);
-        add(resetButton);
+//        add(resetButton);
         add(timeLabel);
 
 
@@ -127,7 +127,7 @@ public class Stopwatch extends JPanel implements ActionListener {
 
             if (!started) {
                 started = true;
-                startButton.setText("STOP");
+                startButton.setVisible(false);
                 start();
             } else {
                 started = false;
@@ -196,7 +196,6 @@ public class Stopwatch extends JPanel implements ActionListener {
         Person person1 = (Person)(leaders.get(0));
         Person person2 = (Person)(leaders.get(1));
         Person person3 = (Person)(leaders.get(2));
-        System.out.println(leaders);
         int a = person1.getMinutes();
         int b = person2.getMinutes();
         int c = person3.getMinutes();
@@ -226,7 +225,7 @@ public class Stopwatch extends JPanel implements ActionListener {
     public void setupleaderboard()
     {
         leaderboardframe1.setText( "1." +  leadername1 + "      00:00:00"  + "\n\n 2." +  leadername2 +  "     00:00:00" + "\n\n 3." +  leadername3 +  "     00:00:00");
-        leaderboardframe1.setBounds(0, 600, 300, 300);
+        leaderboardframe1.setBounds(0, 400, 300, 300);
         leaderboardframe1.setFont(new Font("Arial", Font.PLAIN, 30));
         leaderboardframe1.setBorder(BorderFactory.createBevelBorder(0));
         add(leaderboardframe1);

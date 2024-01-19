@@ -36,12 +36,17 @@ public class ImageSwitcher extends JFrame{
     private boolean[] buttsClicked = new boolean[24];
     ArrayList<Integer> indices = new ArrayList<Integer>();
 
+    private boolean playing = true;
+
+    private int timerstarted=0;
+
 
 
 
     ImageIcon[] images = new ImageIcon[12];
     //private ButtonTest button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12,button13, button14, button15, button16, button17, button18, button19, button20, button21, button22, button23, button24;
 //    private ButtonTest[] butts = new ButtonTest[24];
+
 
 
 
@@ -64,22 +69,6 @@ public class ImageSwitcher extends JFrame{
         }
         Collections.shuffle(shuffledImages);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //   ImageIcon image1 = new ImageIcon(".idea/Image1.jpg");
 //    ImageIcon image2 = new ImageIcon(".idea/Image2.jpg");
 //    ImageIcon image3 = new ImageIcon(".idea/Image3.jpg");
@@ -93,9 +82,6 @@ public class ImageSwitcher extends JFrame{
 //    ImageIcon image11 = new ImageIcon(".idea/Image11.jpg");
 //    ImageIcon image12= new ImageIcon(".idea/Image12.jpg");
 
-
-
-
     public void makeimagelist()
     {
         int i = 1;
@@ -106,46 +92,14 @@ public class ImageSwitcher extends JFrame{
     }
 
 
-
-
-
-
-
-
-
-
-
-
-    public void makeframe()
+    public ImageSwitcher()
     {
-        JFrame frame = new JFrame();
-        frame.setLayout(null);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        panel.setBounds(300,0,1620,1080);
-
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    public ImageSwitcher() {
         makeimagelist();
         shuffled();
         JFrame frame = new JFrame();
         frame.setLayout(null);
         setTitle("Memory Game");
-        panel.setBounds(300, 0, 1620, 1080);
+        panel.setBounds(300, 0, 1620, 1010);
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
@@ -166,7 +120,10 @@ public class ImageSwitcher extends JFrame{
             int index = i;
             button.addActionListener(new ActionListener() {
                 @Override
-                public void actionPerformed(ActionEvent e) {
+                public void actionPerformed(ActionEvent e)
+                {
+                    stopwatch.start();
+
                     if (!canclick || buttsClicked[index]||count>1) return;
                     System.out.println(count);
 
@@ -189,8 +146,10 @@ public class ImageSwitcher extends JFrame{
                             count=0;
                             if (pairsGuessed == 12)
                             {
+                                stopwatch.stop();
                                 JOptionPane.showMessageDialog(frame, "You won!");
                                 stopwatch.reset();
+                                Playagain();
                             }
                         }
                         else
@@ -227,25 +186,67 @@ public class ImageSwitcher extends JFrame{
         // Add stopwatch or other components if needed
     }
 
+    public void Playagain() {
+        // Custom button text
+        Object[] options = {"Yes", "No"};
+
+        int choice = JOptionPane.showOptionDialog(this,
+                "Do you want to play again?",
+                "Play Again",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,     // Do not use a custom Icon
+                options,  // The titles of buttons
+                options[0]); // Default button title
+
+        if (choice == JOptionPane.YES_OPTION)
+        {
+            resetGame();
+
+
+        } else
+
+            System.exit(0);
+    }
+    public void resetGame() {
+        // Reset game state
+        pairsGuessed = 0;
+        count = 0;
+        indices.clear();
+        for(int i =0; i<24;i++)
+        {
+            buttsClicked[i]=false;
+        }
 
 
 
+        // Reset buttons to facedown
+        for (Component comp : panel.getComponents()) {
+            if (comp instanceof JButton) {
+                JButton button = (JButton) comp;
+                button.setIcon(facedown);
+            }
+        }
+
+        // Reshuffle images
+        shuffledImages.clear();
+        shuffled();
+    }
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//   ImageIcon image1 = new ImageIcon(".idea/Image1.jpg");
+//    ImageIcon image2 = new ImageIcon(".idea/Image2.jpg");
+//    ImageIcon image3 = new ImageIcon(".idea/Image3.jpg");
+//    ImageIcon image4 = new ImageIcon(".idea/Image4.jpg");
+//    ImageIcon image5 = new ImageIcon(".idea/Image5.jpg");
+//    ImageIcon image6 = new ImageIcon(".idea/Image6.jpg");
+//    ImageIcon image7 = new ImageIcon(".idea/Image7.jpg");
+//    ImageIcon image8 = new ImageIcon(".idea/Image8.jpg");
+//    ImageIcon image9 = new ImageIcon(".idea/Image9.jpg");
+//    ImageIcon image10 = new ImageIcon(".idea/Image10.jpg");
+//    ImageIcon image11 = new ImageIcon(".idea/Image11.jpg");
+//    ImageIcon image12= new ImageIcon(".idea/Image12.jpg");
 //    public Image[] getFlics()
 //    {
 //        return inUseFlics;
@@ -433,7 +434,7 @@ public class ImageSwitcher extends JFrame{
 //            }
 //        }
 //    }
-}
+
 
 
 

@@ -18,40 +18,30 @@ public class Stopwatch extends JPanel implements ActionListener {
     private int minutes = 0;
     private int millisec = 0;
 
-
     private String leadername1 = "N/A";
     private String leadername2 = "N/A";
     private String leadername3 = "N/A";
 
 
-    Person person = new Person();
-
-
-
+    private Person person;
 
     ArrayList<Person> leaders = new ArrayList<Person>();
-
 
     private String name;
     private int leaderboard1=0;
     private int leaderboard2=0;
     private int leaderboard3=0;
 
-
     private boolean started = false;
     private String seconds_string = String.format("%02d", seconds);
     private String minutes_string = String.format("%02d", minutes);
     private String millisec_string = String.format("%02d", millisec);
 
-
     JTextArea leaderboardframe1 = new JTextArea();
-
 
     Timer timer = new Timer(1, new ActionListener() {
 
-
         public void actionPerformed(ActionEvent e) {
-
 
             elapsedTime = elapsedTime + 15;
             millisec = (elapsedTime / 10) % 100;
@@ -62,17 +52,15 @@ public class Stopwatch extends JPanel implements ActionListener {
             millisec_string = String.format("%02d", millisec);
             timeLabel.setText(minutes_string + ":" + seconds_string + ":" + millisec_string);
 
-
         }
-
 
     });
 
-    public Stopwatch() {
+    public Stopwatch(Person p) {
         setBounds(0,0,300,1080);
         setupleaderboard();
         setLayout(null);
-
+        person = p;
 
         timeLabel.setText(minutes_string + ":" + seconds_string + ":" + millisec_string);
         timeLabel.setBounds(50, 100, 200, 100);
@@ -81,49 +69,20 @@ public class Stopwatch extends JPanel implements ActionListener {
         timeLabel.setOpaque(true);
         timeLabel.setHorizontalAlignment(JTextField.CENTER);
 
-
         startButton.setBounds(50, 200, 200, 50);
         startButton.setFont(new Font("Ink Free", Font.PLAIN, 20));
         startButton.setFocusable(false);
         startButton.addActionListener(this);
 
-
-//        resetButton.setBounds(50, 250, 200, 50);
-//        resetButton.setFont(new Font("Ink Free", Font.PLAIN, 20));
-//        resetButton.setFocusable(false);
-//        resetButton.addActionListener(this);
-
-
-
-
-
-
         add(startButton);
-//        add(resetButton);
         add(timeLabel);
-
-
-
-
-
-
-
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setSize(300, 1080);
-//        frame.setLayout(null);
-//        frame.setVisible(true);
-
-
         leaders.add(new Person("EX",20000000));
         leaders.add(new Person("EX",20000000));
-
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
-
 
             if (!started) {
                 started = true;
@@ -135,7 +94,6 @@ public class Stopwatch extends JPanel implements ActionListener {
                 stop();
             }
 
-
         }
         if (e.getSource() == resetButton) {
             started = false;
@@ -143,17 +101,14 @@ public class Stopwatch extends JPanel implements ActionListener {
             reset();
         }
 
-
     }
     void start() {
         timer.start();
     }
 
-
     void stop() {
         timer.stop();
     }
-
 
     void reset() {
         timer.stop();
@@ -183,14 +138,9 @@ public class Stopwatch extends JPanel implements ActionListener {
 
     }
 
-
-
-
-
-
     public void updateleaderboard()
     {
-//        name = person.askname();
+
         leaders.add(new Person(name,elapsedTime));
         leaders.sort(Comparator.comparing(Person::gettime));
         Person person1 = (Person)(leaders.get(0));
@@ -220,8 +170,9 @@ public class Stopwatch extends JPanel implements ActionListener {
                 "\n\n3." +  person3.getName() + "    " + c_string+ ":" + f_string+ ":" + i_string);
 
     }
-
-
+    public Person getPerson(){
+        return person;
+    }
     public void setupleaderboard()
     {
         leaderboardframe1.setText( "1." +  leadername1 + "      00:00:00"  + "\n\n 2." +  leadername2 +  "     00:00:00" + "\n\n 3." +  leadername3 +  "     00:00:00");
@@ -230,9 +181,4 @@ public class Stopwatch extends JPanel implements ActionListener {
         leaderboardframe1.setBorder(BorderFactory.createBevelBorder(0));
         add(leaderboardframe1);
     }
-
-
-
-
-
 }

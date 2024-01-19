@@ -5,33 +5,26 @@ public class Person
 {
     private String name;
     private int timeused;
+    public static int totalPpl = 0;
 
     private int seconds = 0;
     private int minutes = 0;
     private int millisec = 0;
 
-    Person(String x, int y)
+    public Person(String x, int y)
     {
         name = x;
         timeused = y;
         millisec = (y/ 10) % 100;
         minutes = (y / 60000) % 60;
         seconds = (y / 1000) % 60;
+        totalPpl++;
     }
 
     public Person()
     {
+        totalPpl++;
     }
-
-//    public String askname()
-//    {
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("What's your name");
-//
-//        String name = scanner.nextLine();
-//        return name;
-//
-//    }
 
     public int gettime()
     {

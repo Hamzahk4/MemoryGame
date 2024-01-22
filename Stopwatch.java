@@ -26,7 +26,8 @@ public class Stopwatch extends JPanel implements ActionListener {
     private String leadername3 = "N/A";
 
 
-    Person person = new Person();
+    Person person;
+    private Person[] ppl = new Person[4];
 
 
 
@@ -82,11 +83,11 @@ public class Stopwatch extends JPanel implements ActionListener {
 
 
 
-    public Stopwatch() {
+    public Stopwatch(Person p) {
         setBounds(0,0,300,1080);
         setupleaderboard();
         setLayout(null);
-
+person = p;
 
         timeLabel.setText(minutes_string + ":" + seconds_string + ":" + millisec_string);
         timeLabel.setBounds(50, 100, 200, 100);
@@ -121,8 +122,8 @@ public class Stopwatch extends JPanel implements ActionListener {
 //        frame.setVisible(true);
 
 
-        leaders.add(new Person("EX",20000000));
-        leaders.add(new Person("EX",20000000));
+        leaders.add(new Person("EX", 60390990));
+        leaders.add(new Person("EX",60390990));
 
         setinstructions();
 
@@ -201,6 +202,7 @@ public class Stopwatch extends JPanel implements ActionListener {
     {
 //        name = person.askname();
         leaders.add(new Person(name,elapsedTime));
+
         leaders.sort(Comparator.comparing(Person::gettime));
         Person person1 = (Person)(leaders.get(0));
         Person person2 = (Person)(leaders.get(1));
@@ -214,6 +216,10 @@ public class Stopwatch extends JPanel implements ActionListener {
         int g= person1.getMillisec();
         int h= person2.getMillisec();
         int i= person3.getMillisec();
+       ppl[0] = person;
+       ppl[1] = person1;
+       ppl[2] = person2;
+       ppl[3] = person3;
         String a_string = String.format("%02d", a);
         String b_string = String.format("%02d", b);
         String c_string = String.format("%02d", c);
@@ -240,8 +246,12 @@ public class Stopwatch extends JPanel implements ActionListener {
         add(leaderboardframe1);
     }
 
+public Person lowestScore() {
+        Person p = ppl[0];
+    for (int i = 1; i < ppl.length; i++) {
+     if (ppl[i].gettime() > p.gettime()) p = ppl[i];
 
-
-
-
+    }
+    return p;
+}
 }

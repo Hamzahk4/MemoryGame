@@ -49,7 +49,7 @@ public class ImageSwitcher extends JFrame{
         frame.add(stopwatch, BorderLayout.WEST);
         frame.pack();
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setResizable(false);
+        frame.setResizable(true);
 
 
         for (int i = 0; i < 24; i++) {
@@ -176,10 +176,11 @@ Person.totalPpl--;
     public void resetGame() {
         // Reset game state
         pairsGuessed = 0;
-        count = 0;
+        int countt = 0;
         indices.clear();
         for(int i =0; i<24;i++)
         {
+            countt++;
             buttsClicked[i]=false;
         }
 

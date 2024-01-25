@@ -15,8 +15,24 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+/**
+ * This class represents a memory game where players match pairs of images by flipping buttons.
+ * The game board consists of a grid layout with buttons representing the images.
+ * Players can click on buttons to reveal the images underneath and attempt to find matching pairs.
+ * The game includes features such as a stopwatch to track time and the ability to play again.
+ *
+ * // Preconditions: The class assumes that images for the game are provided and properly stored in the file system.
+ * It also assumes that the JFrame and its components are set up correctly before the game starts.
+ * // Postconditions: After playing the game, users may choose to play again or exit the program.
+ * The game state is reset, and players have the option to restart the game with shuffled images.
+ *
+ * @author [Hamzah Kazmi, Samuel Lewin, Toshinori Underwood]
+ * @version [1.0]
+ * @since [1/25/24]
+ */
 
 public class ImageSwitcher extends JFrame{
+
     private Image[] flics = new Image[12];
     private static final int[] xCoords = {315 ,585 ,855, 1125, 1395, 1665}; // x coordinates for 6 columns
     private static final int[] yCoords = {0, 265, 530, 795};               // y coordinates for 4 rows
@@ -32,6 +48,9 @@ public class ImageSwitcher extends JFrame{
     private ImageIcon[] images = new ImageIcon[12];
     private List<ImageIcon> shuffledImages = new ArrayList<>();
 
+    /**
+     *
+     */
     public ImageSwitcher() {
         makeimagelist();
         shuffled();

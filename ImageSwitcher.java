@@ -51,7 +51,8 @@ public class ImageSwitcher extends JFrame{
     /**
      *
      */
-    public ImageSwitcher() {
+    public ImageSwitcher()
+    {
         makeimagelist();
         shuffled();
         JFrame frame = new JFrame();

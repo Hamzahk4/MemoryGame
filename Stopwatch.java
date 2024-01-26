@@ -19,6 +19,7 @@ public class Stopwatch extends JPanel implements ActionListener {
     private int seconds = 0;
     private int minutes = 0;
     private int millisec = 0;
+    private int wins = 0;
 
 
     private String leadername1 = "N/A";
@@ -87,7 +88,7 @@ public class Stopwatch extends JPanel implements ActionListener {
         setBounds(0,0,300,1080);
         setupleaderboard();
         setLayout(null);
-person = p;
+        person = p;
 
         timeLabel.setText(minutes_string + ":" + seconds_string + ":" + millisec_string);
         timeLabel.setBounds(50, 100, 200, 100);
@@ -166,6 +167,7 @@ person = p;
 
 
     void reset() {
+        wins++;
         timer.stop();
 
 
@@ -230,9 +232,24 @@ person = p;
         String h_string = String.format("%02d", h);
         String i_string = String.format("%02d", i);
 
-        leaderboardframe1.setText( "1." +  person1.getName() + "    " + a_string+ ":" + d_string+ ":" + g_string+
-                "\n\n2." +  person2.getName() + "    " + b_string+ ":" + e_string+ ":" + h_string+
-                "\n\n3." +  person3.getName() + "    " + c_string+ ":" + f_string+ ":" + i_string);
+        if (wins ==1)
+        {
+            leaderboardframe1.setText( "1." +  person1.getName() + "    " + a_string+ ":" + d_string+ ":" + g_string+
+                    "\n\n2.         --:--:--"+
+                    "\n\n3.         --:--:--");
+        }
+        else if (wins ==2)
+        {
+            leaderboardframe1.setText( "1." +  person1.getName() + "    " + a_string+ ":" + d_string+ ":" + g_string+
+                    "\n\n2." +  person2.getName() + "    " + b_string+ ":" + e_string+ ":" + h_string+
+                    "\n\n3.         --:--:--");
+        }
+        else
+        {
+            leaderboardframe1.setText("1." + person1.getName() + "    " + a_string + ":" + d_string + ":" + g_string +
+                    "\n\n2." + person2.getName() + "    " + b_string + ":" + e_string + ":" + h_string +
+                    "\n\n3." + person3.getName() + "    " + c_string + ":" + f_string + ":" + i_string);
+        }
 
     }
 

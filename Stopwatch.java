@@ -74,7 +74,7 @@ public class Stopwatch extends JPanel implements ActionListener {
 
     public void setinstructions()
     {
-        instructions.setText("  Welcome to MEMORY GAME      \n\n Please follow the following rules\n\n 1. Do not click the same button twice\n 2. You can select two images at once\n 3. If the images are the same they will \nremain faceup\n 4. Once all pairs are found the game \nwill end\n GOOD LUCKKKKK");
+        instructions.setText("Welcome to Memory Madness!\n\n Instructions/rules:\n 1. Do not click the same image twice \n 2. You can select two images at once \nto find a match\n 3. If the images are the same they will \nremain faceup\n 4. Once all pairs are found the game \nyou win!\n GOOD LUCK :)");
         instructions.setBounds(0, 700, 300, 300);
         instructions.setFont(new Font("Serif", Font.PLAIN, 18));
         instructions.setBorder(BorderFactory.createBevelBorder(0));
